@@ -66,6 +66,26 @@
 
     <script>
         const rules = [
+            // 四つの文字から構成されるもの
+            { from: 'schm', to: 'SM' },
+            { from: 'schc', to: 'ST' },
+            { from: 'scht', to: 'ST' },
+            { from: 'schw', to: 'SW' },
+
+            // 三つの文字から構成されるもの
+            { from: 'chr', to: 'KL' },
+            { from: 'nch', to: 'NK' },
+            { from: 'cch', to: 'SK' },
+            { from: 'chl', to: 'KR' },
+            { from: 'chc', to: 'KT' },
+            { from: 'cht', to: 'KT' },
+
+            // 二つの文字から構成されるもの
+            { from: 'gt', to: 'KT' },
+            { from: 'gl', to: 'KR' },
+            { from: 'hl', to: 'KR' },
+            { from: 'gr', to: 'KL' },
+            { from: 'hr', to: 'KL' },
             { from: 'fr', to: 'FL' },
             { from: 'fl', to: 'FR' },
             { from: 'bt', to: 'FT' },
@@ -76,85 +96,19 @@
             { from: 'wl', to: 'J' },
             { from: 'ww', to: 'J' },
             { from: 'sk', to: 'K' },
-            { from: 'chr', to: 'KL' },
-            { from: 'gr', to: 'KL' },
-            { from: 'hr', to: 'KL' },
-            { from: 'chl', to: 'KR' },
-            { from: 'gl', to: 'KR' },
-            { from: 'hl', to: 'KR' },
-            { from: 'chc', to: 'KT' },
-            { from: 'cht', to: 'KT' },
-            { from: 'gt', to: 'KT' },
-            { from: 'kt', to: 'KT' },
-            { from: 'rf', to: 'L' },
-            { from: 'rr', to: 'L' },
-            { from: 'rb', to: 'LP' },
-            { from: 'rp', to: 'LP' },
-            { from: 'rc', to: 'LT' },
-            { from: 'rd', to: 'LT' },
-            { from: 'mt', to: 'ND' },
-            { from: 'nt', to: 'ND' },
-            { from: 'nk', to: 'NG' },
-            { from: 'nch', to: 'NK' },
-            { from: 'ng', to: 'NK' },
-            { from: 'ml', to: 'NN' },
-            { from: 'nz', to: 'NS' },
-            { from: 'nsch', to: 'NT' },
-            { from: 'mp', to: 'NT' },
-            { from: 'nd', to: 'NT' },
-            { from: 'sp', to: 'P' },
-            { from: 'pf', to: 'PF' },
-            { from: 'br', to: 'PL' },
-            { from: 'pr', to: 'PL' },
-            { from: 'bl', to: 'PR' },
-            { from: 'pl', to: 'PR' },
-            { from: 'pz', to: 'PS' },
-            { from: 'lw', to: 'R' },
-            { from: 'lk', to: 'RG' },
-            { from: 'lg', to: 'RK' },
-            { from: 'rl', to: 'RL' },
-            { from: 'rm', to: 'RM' },
-            { from: 'rn', to: 'RN' },
-            { from: 'lb', to: 'RP' },
-            { from: 'll', to: 'R' },
-            { from: 'lz', to: 'RS' },
-            { from: 'ld', to: 'RT' },
-            { from: 'lt', to: 'RT' },
-            { from: 'rt', to: 'RT' },
-            { from: 'rs', to: 'RZ' },
-            { from: 'cc', to: 'SC' },
-            { from: 'zc', to: 'SC' },
-            { from: 'cch', to: 'SK' },
-            { from: 'zr', to: 'SL' },
-            { from: 'schm', to: 'SM' },
-            { from: 'sn', to: 'SM' },
-            { from: 'zl', to: 'SR' },
-            { from: 'ssch', to: 'SS' },
-            { from: 'schc', to: 'ST' },
-            { from: 'scht', to: 'ST' },
-            { from: 'sc', to: 'ST' },
-            { from: 'zt', to: 'ST' },
-            { from: 'schw', to: 'SW' },
-            { from: 'zw', to: 'SW' },
-            { from: 'st', to: 'T' },
-            { from: 'ck', to: 'KT' },
-            { from: 'dg', to: 'KT' },
-            { from: 'dr', to: 'TL' },
-            { from: 'tr', to: 'TL' },
-            { from: 'dl', to: 'TR' },
-            { from: 'tl', to: 'TR' },
-            { from: 'dc', to: 'TT' },
-            { from: 'dz', to: 'TT' },
-            { from: 'tz', to: 'TT' },
-            { from: 'vv', to: 'V' },
-            { from: 'ss', to: 'Z' },
+            { from: 'ch', to: 'C' },
+            { from: 'sh', to: 'Z' },
+            { from: 'ei', to: 'A' },
+            { from: 'ui', to: 'AU' },
+            { from: 'au', to: 'U' },
+
+            // 一つの文字から構成されるもの
             { from: 'b', to: 'P' },
             { from: 'c', to: 'CH' },
-            { from: 'ch', to: 'C' },
             { from: 'd', to: 'T' },
             { from: 'f', to: 'V' },
             { from: 'g', to: 'K' },
-            { from: 'h', to: 'H'' },
+            { from: 'h', to: '\'' },
             { from: 'j', to: 'W' },
             { from: 'k', to: 'G' },
             { from: 'l', to: 'R' },
@@ -163,7 +117,6 @@
             { from: 'p', to: 'B' },
             { from: 'r', to: 'L' },
             { from: 's', to: 'SH' },
-            { from: 'sh', to: 'Z' },
             { from: 't', to: 'D' },
             { from: 'v', to: 'F' },
             { from: 'w', to: 'J' },
@@ -171,20 +124,17 @@
             { from: 'i', to: 'E' },
             { from: 'e', to: 'EI' },
             { from: 'ä', to: 'EI' },
-            { from: 'ei', to: 'A' },
             { from: 'a', to: 'I' },
             { from: 'ü', to: 'U' },
             { from: 'ö', to: 'O' },
-            { from: 'ui', to: 'AU' },
             { from: 'u', to: 'O' },
-            { from: 'o', to: 'AU' },
-            { from: 'au', to: 'U' }
+            { from: 'o', to: 'AU' }
         ];
 
         function convertText() {
             let input = document.getElementById('inputText').value;
 
-            // 変換ルールを順番に適用
+            // 変換ルールを順番に適用（四つ、三つ、二つ、一つの順で）
             rules.forEach(rule => {
                 const regex = new RegExp(rule.from, 'g');
                 input = input.replace(regex, rule.to);
@@ -207,4 +157,3 @@
     </script>
 </body>
 </html>
-
