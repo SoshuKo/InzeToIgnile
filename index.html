@@ -8,17 +8,58 @@
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
         }
         #output {
             margin-top: 20px;
             border: 1px solid #ccc;
             padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            white-space: pre-wrap; /* Preserve newlines */
+            line-height: 1.6;
+        }
+        .output-line {
+            margin-bottom: 5px;
+            padding-left: 10px;
+            background-color: #e7f4e7;
+            border-left: 4px solid #4CAF50;
         }
     </style>
 </head>
 <body>
     <h1>旧インゼ語→イグニレ語変換器</h1>
-    <textarea id="inputText" rows="6" cols="60" placeholder="旧インゼ語のテキストをここに入力してください"></textarea><br>
+    <textarea id="inputText" placeholder="旧インゼ語のテキストをここに入力してください"></textarea><br>
     <button onclick="convertText()">変換</button>
 
     <div id="output"></div>
@@ -113,7 +154,7 @@
             { from: 'd', to: 'T' },
             { from: 'f', to: 'V' },
             { from: 'g', to: 'K' },
-            { from: 'h', to: 'H'' },
+            { from: 'h', to: '\'' },
             { from: 'j', to: 'W' },
             { from: 'k', to: 'G' },
             { from: 'l', to: 'R' },
@@ -152,10 +193,17 @@
             // 大文字を小文字に戻す
             input = input.toLowerCase();
 
-            // 結果を表示
-            document.getElementById('output').textContent = input;
+            // 出力を行ごとに分けて表示
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = ''; // 以前の出力をクリア
+            const lines = input.split('\n');
+            lines.forEach(line => {
+                const div = document.createElement('div');
+                div.className = 'output-line';
+                div.textContent = line;
+                outputDiv.appendChild(div);
+            });
         }
     </script>
 </body>
 </html>
-
