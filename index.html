@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旧インゼ語→イグニレ語変換器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>旧インゼ語→イグニレ語変換器</h1>
+    <textarea id="inputText" rows="6" cols="60" placeholder="旧インゼ語のテキストをここに入力してください"></textarea><br>
+    <button onclick="convertText()">変換</button>
+
+    <div id="output"></div>
+
+    <script>
+        const rules = [
+            { from: 'fr', to: 'fl' },
+            { from: 'fl', to: 'fr' },
+            { from: 'bt', to: 'ft' },
+            { from: 'ft', to: 'ft' },
+            { from: 'kr', to: 'gl' },
+            { from: 'kn', to: 'gn' },
+            { from: 'kl', to: 'gr' },
+            { from: 'wl', to: 'j' },
+            { from: 'ww', to: 'j' },
+            { from: 'sk', to: 'k' },
+            { from: 'chr', to: 'kl' },
+            { from: 'gr', to: 'kl' },
+            { from: 'hr', to: 'kl' },
+            { from: 'chl', to: 'kr' },
+            { from: 'gl', to: 'kr' },
+            { from: 'hl', to: 'kr' },
+            { from: 'chc', to: 'kt' },
+            { from: 'cht', to: 'kt' },
+            { from: 'gt', to: 'kt' },
+            { from: 'kt', to: 'kt' },
+            { from: 'rf', to: 'l' },
+            { from: 'rr', to: 'l' },
+            { from: 'rb', to: 'lp' },
+            { from: 'rp', to: 'lp' },
+            { from: 'rc', to: 'lt' },
+            { from: 'rd', to: 'lt' },
+            { from: 'mt', to: 'nd' },
+            { from: 'nt', to: 'nd' },
+            { from: 'nk', to: 'ng' },
+            { from: 'nch', to: 'nk' },
+            { from: 'ng', to: 'nk' },
+            { from: 'ml', to: 'nn' },
+            { from: 'nz', to: 'ns' },
+            { from: 'nsch', to: 'nt' },
+            { from: 'mp', to: 'nt' },
+            { from: 'nd', to: 'nt' },
+            { from: 'sp', to: 'p' },
+            { from: 'pf', to: 'pf' },
+            { from: 'br', to: 'pl' },
+            { from: 'pr', to: 'pl' },
+            { from: 'bl', to: 'pr' },
+            { from: 'pl', to: 'pr' },
+            { from: 'pz', to: 'ps' },
+            { from: 'lw', to: 'r' },
+            { from: 'lk', to: 'rg' },
+            { from: 'lg', to: 'rk' },
+            { from: 'rl', to: 'rl' },
+            { from: 'rm', to: 'rm' },
+            { from: 'rn', to: 'rn' },
+            { from: 'lb', to: 'rp' },
+            { from: 'll', to: 'r' },
+            { from: 'lz', to: 'rs' },
+            { from: 'ld', to: 'rt' },
+            { from: 'lt', to: 'rt' },
+            { from: 'rt', to: 'rt' },
+            { from: 'rs', to: 'rz' },
+            { from: 'cc', to: 'sc' },
+            { from: 'zc', to: 'sc' },
+            { from: 'cch', to: 'sk' },
+            { from: 'zr', to: 'sl' },
+            { from: 'schm', to: 'sm' },
+            { from: 'sn', to: 'sm' },
+            { from: 'zl', to: 'sr' },
+            { from: 'ssch', to: 'ss' },
+            { from: 'schc', to: 'st' },
+            { from: 'scht', to: 'st' },
+            { from: 'sc', to: 'st' },
+            { from: 'zt', to: 'st' },
+            { from: 'schw', to: 'sw' },
+            { from: 'zw', to: 'sw' },
+            { from: 'st', to: 't' },
+            { from: 'ck', to: 'kt' },
+            { from: 'dg', to: 'kt' },
+            { from: 'dr', to: 'tl' },
+            { from: 'tr', to: 'tl' },
+            { from: 'dl', to: 'tr' },
+            { from: 'tl', to: 'tr' },
+            { from: 'dc', to: 'tt' },
+            { from: 'dz', to: 'tt' },
+            { from: 'tz', to: 'tt' },
+            { from: 'vv', to: 'v' },
+            { from: 'ss', to: 'z' },
+            { from: 'b', to: 'p' },
+            { from: 'c', to: 'ch' },
+            { from: 'ch', to: 'c' },
+            { from: 'd', to: 't' },
+            { from: 'f', to: 'v' },
+            { from: 'g', to: 'k' },
+            { from: 'h', to: '\'' },
+            { from: 'j', to: 'w' },
+            { from: 'k', to: 'g' },
+            { from: 'l', to: 'r' },
+            { from: 'm', to: 'm' },
+            { from: 'n', to: 'n' },
+            { from: 'p', to: 'b' },
+            { from: 'r', to: 'l' },
+            { from: 's', to: 'sh' },
+            { from: 'sh', to: 'z' },
+            { from: 't', to: 'd' },
+            { from: 'v', to: 'f' },
+            { from: 'w', to: 'j' },
+            { from: 'z', to: 's' },
+            { from: 'i', to: 'e' },
+            { from: 'e', to: 'ei' },
+            { from: 'ä', to: 'ei' },
+            { from: 'ei', to: 'a' },
+            { from: 'a', to: 'i' },
+            { from: 'ü', to: 'u' },
+            { from: 'ö', to: 'o' },
+            { from: 'ui', to: 'au' },
+            { from: 'u', to: 'o' },
+            { from: 'o', to: 'au' },
+            { from: 'au', to: 'u' }
+        ];
+
+        function convertText() {
+            let input = document.getElementById('inputText').value;
+            let originalText = input;
+
+            // 変換を一度だけ実行する
+            const processed = new Set();
+            
+            // 変換ルールを順番に適用
+            rules.forEach(rule => {
+                // すでに変換した文字列をスキップ
+                if (processed.has(rule.from)) return;
+                
+                const regex = new RegExp(rule.from, 'g');
+                input = input.replace(regex, rule.to);
+                processed.add(rule.from);  // 変換済みとしてマーク
+            });
+
+            // 結果を表示
+            document.getElementById('output').textContent = input;
+        }
+    </script>
+</body>
+</html>
