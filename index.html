@@ -152,20 +152,24 @@
             input = input.toLowerCase();
 
             // áまたはóが単語に複数存在する場合の処理（後ろのものを優先）
-            input = input.replace(/(\S*)á(\S*)/g, (match, p1, p2) => {
-                const lastAIndex = p1.lastIndexOf('á');
-                if (lastAIndex !== -1) {
-                    return p1.substring(0, lastAIndex) + 'a' + p1.substring(lastAIndex + 1) + p2;
+            input = input.replace(/(\S*[áó]\S*)/g, (word) => {
+                let lastAIndex = word.lastIndexOf('á');
+                let lastOIndex = word.lastIndexOf('ó');
+                let lastIndex = Math.max(lastAIndex, lastOIndex);
+        
+                if (lastIndex !== -1) {
+                    let newWord = "";
+                    if (lastAIndex > lastOIndex) {
+                        newWord = word.substring(0, lastAIndex) + 'a' + word.substring(lastAIndex + 1);
+                    } else {
+                        newWord = word.substring(0, lastOIndex) + 'o' + word.substring(lastOIndex + 1);
+                    }
+                    // 最後のá,ó以外のá,óをa,oに変換
+                    newWord = newWord.replace(/á/g, 'a');
+                    newWord = newWord.replace(/ó/g, 'o');
+                    return newWord;
                 } else {
-                    return match;
-                }
-            });
-            input = input.replace(/(\S*)ó(\S*)/g, (match, p1, p2) => {
-                const lastOIndex = p1.lastIndexOf('ó');
-                if (lastOIndex !== -1) {
-                    return p1.substring(0, lastOIndex) + 'o' + p1.substring(lastOIndex + 1) + p2;
-                } else {
-                    return match;
+                    return word;
                 }
             });
             
