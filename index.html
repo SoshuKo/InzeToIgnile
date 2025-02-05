@@ -151,6 +151,24 @@
             // 大文字を小文字に戻す
             input = input.toLowerCase();
 
+            // áまたはóが単語に複数存在する場合の処理（後ろのものを優先）
+            input = input.replace(/(\S*)á(\S*)/g, (match, p1, p2) => {
+                const lastAIndex = p1.lastIndexOf('á');
+                if (lastAIndex !== -1) {
+                    return p1.substring(0, lastAIndex) + 'a' + p1.substring(lastAIndex + 1) + p2;
+                } else {
+                    return match;
+                }
+            });
+            input = input.replace(/(\S*)ó(\S*)/g, (match, p1, p2) => {
+                const lastOIndex = p1.lastIndexOf('ó');
+                if (lastOIndex !== -1) {
+                    return p1.substring(0, lastOIndex) + 'o' + p1.substring(lastOIndex + 1) + p2;
+                } else {
+                    return match;
+                }
+            });
+            
             // 出力を行ごとに分けて表示
             const outputDiv = document.getElementById('output');
             outputDiv.innerHTML = ''; // 以前の出力をクリア
